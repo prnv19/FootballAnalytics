@@ -4,6 +4,18 @@ from app.services.players.injuries import TransfermarktPlayerInjuries
 from app.services.players.profile import TransfermarktPlayerProfile
 from app.services.players.stats import TransfermarktPlayerStats
 
+
+def str2currency(value):
+    if value == '-':
+        return 0
+    else:
+        if 'm' in value:
+            return float(value.replace('€', '').replace('m', '')) * 1e6
+        elif 'k' in value:
+            return float(value.replace('€', '').replace('k', '')) * 1e3
+        else:
+            return float(value.replace('€', ''))
+
 def GetPlayerStats(player_id):
     player = {}
     player['id'] = str(player_id)
@@ -21,7 +33,9 @@ def GetPlayerStats(player_id):
         player['OtherPosition'] = result['position']['other']
         player['National'] = result['placeOfBirth']['country']
         player['isRetired'] = result['isRetired']
-        player['MarketValue'] = result['marketValue']
+        player['MarketValue'] = str2currency(result['marketValue'])
+
+        
         player['Outfitter'] = result['outfitter']
         player['Club_name'] = result['club']['name']
         player['ContractExpiry'] = result['club']['contractExpires']
@@ -71,19 +85,7 @@ def GetPlayerStats(player_id):
             year = int(entry['date'].split()[-1])  # Extract year from the date
             # Add market value to the corresponding year in the player dictionary
             if 2020 <= year <= 2025:
-                if entry['marketValue'] == '-':
-                    player[f'{year}MV'].append(0)
-                else:
-                    if 'm' in entry['marketValue']:
-                    # Convert millions (e.g., '1.5m' -> 1.5)
-                        value = float(entry['marketValue'].replace('€', '').replace('m', '')) * 1e6
-                    elif 'k' in entry['marketValue']:
-                        # Convert thousands (e.g., '400k' -> 400000)
-                        value = float(entry['marketValue'].replace('€', '').replace('k', '')) * 1e3
-                    else:
-                        # Handle cases with no suffix (e.g., '400' -> 400)
-                        value = float(entry['marketValue'].replace('€', ''))
-                    player[f'{year}MV'].append(value)
+                player[f'{year}MV'].append(entry['marketValue'])
 
         # Compute the average market value for each year
         for year in range(2020, 2026):
