@@ -62,13 +62,34 @@ def GetPlayerStats(player_id):
             season_key = stat['seasonId'][-2:]
             
             if season_key.startswith('2'):
-                player[f'{season_key}YC'] += int(stat['yellowCards'] if stat['yellowCards'] != '-' else 0)
-                player[f'{season_key}2YC'] += int(stat['secondYellowCards'] if stat['secondYellowCards'] != '-' else 0)
-                player[f'{season_key}RC'] += int(stat['redCards'] if stat['redCards'] != '-' else 0)
-                player[f'{season_key}G'] += int(stat['goals'] if stat['goals'] != '-' else 0)
-                player[f'{season_key}A'] += int(stat['assists'] if stat['assists'] != '-' else 0)
-                player[f'{season_key}MP'] += float(stat['minutesPlayed'].replace("'", "") if stat['minutesPlayed'] != '-' else 0)
-                player[f'{season_key}AP'] += int(stat['appearances'] if stat['appearances'] != '-' else 0)
+                try:
+                    player[f'{season_key}YC'] += int(stat['yellowCards'] if stat['yellowCards'] != '-' else 0)
+                except:
+                    player[f'{season_key}YC'] += 0
+                try:
+                    player[f'{season_key}2YC'] += int(stat['secondYellowCards'] if stat['secondYellowCards'] != '-' else 0)
+                except:
+                    player[f'{season_key}2YC'] += 0
+                try:
+                    player[f'{season_key}RC'] += int(stat['redCards'] if stat['redCards'] != '-' else 0)
+                except:
+                    player[f'{season_key}RC'] += 0
+                try:
+                    player[f'{season_key}G'] += int(stat['goals'] if stat['goals'] != '-' else 0)
+                except:
+                    player[f'{season_key}G'] += 0
+                try:
+                    player[f'{season_key}A'] += int(stat['assists'] if stat['assists'] != '-' else 0)
+                except:
+                    player[f'{season_key}A'] += 0
+                try:
+                    player[f'{season_key}MP'] += float(stat['minutesPlayed'].replace("'", "") if stat['minutesPlayed'] != '-' else 0)
+                except:
+                    player[f'{season_key}MP'] += 0
+                try:
+                    player[f'{season_key}AP'] += int(stat['appearances'] if stat['appearances'] != '-' else 0)
+                except:
+                    player[f'{season_key}AP'] += 0
         
         
         tfmkt = TransfermarktPlayerMarketValue(player_id=player['id'])
