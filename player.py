@@ -67,9 +67,9 @@ def GetPlayerStats(player_id):
                 except:
                     player[f'{season_key}YC'] += 0
                 try:
-                    player[f'{season_key}2YC'] += int(stat['secondYellowCards'] if stat['secondYellowCards'] != '-' else 0)
+                    player[f'{season_key}YC2'] += int(stat['secondYellowCards'] if stat['secondYellowCards'] != '-' else 0)
                 except:
-                    player[f'{season_key}2YC'] += 0
+                    player[f'{season_key}YC2'] += 0
                 try:
                     player[f'{season_key}RC'] += int(stat['redCards'] if stat['redCards'] != '-' else 0)
                 except:
