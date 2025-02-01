@@ -113,7 +113,7 @@ def GetPlayerStats(player_id):
                 player[f'{year}MV'].append(str2currency(entry['marketValue']))
 
         # Compute the average market value for each year
-        for year in range(2020, 2026):
+        for year in range(2020, 2025):
             if player[f'{year}MV']:  # Check if there are any market values for that year
                 player[f'{year}AvgMV'] = sum(player[f'{year}MV']) / len(player[f'{year}MV'])
             else:
