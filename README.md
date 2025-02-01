@@ -52,8 +52,4 @@ This dataset is useful for:
 - **Club and Transfer Analytics** - Assess the impact of players in different clubs.  
 - **Fantasy Football & Sports Betting Models** - Build predictive models based on historical performance data.  
 
-## **Notes**  
-- Missing values exist in `Outfitter` and `ContractOption` fields due to incomplete data collection.  
-- Some players might have changing positions or clubs over time.  
-
 ---
